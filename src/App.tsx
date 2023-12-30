@@ -2,7 +2,6 @@ import './App.css';
 import headerImg from './assets/react.svg';
 import HeaderFC from './components/HeaderFC';
 import { useState } from 'react';
-import Header from './components/Header';
 import CourseGoalList from './components/CourseGoalList';
 import { CourseGoal } from './components/CourseGoalList';
 import NewGoal from './components/NewGoal';
@@ -10,12 +9,12 @@ import NewGoal from './components/NewGoal';
 function App() {
 	const [goals, setGoals] = useState<CourseGoal[]>([]);
 
-	function handlerAddGoal() {
+	function handlerAddGoal(goal: string, summary: string) {
 		setGoals([
 			...goals,
 			{
-				title: 'This is your new goal',
-				description: 'Your goal descrition',
+				title: goal,
+				description: summary,
 				id: Math.random(),
 			},
 		]);
@@ -30,8 +29,7 @@ function App() {
 			<HeaderFC img={{ src: headerImg, alt: 'Here are your goals.' }}>
 				<h1>This is your goals</h1>
 			</HeaderFC>
-			<button onClick={handlerAddGoal}>Add Goal</button>
-			<NewGoal />
+			<NewGoal onAddGoal={handlerAddGoal} />
 			<CourseGoalList goals={goals} onDelete={handleDeleteGoal} />
 		</main>
 	);

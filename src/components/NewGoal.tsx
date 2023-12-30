@@ -1,6 +1,10 @@
 import { useRef, type FormEvent } from 'react';
 
-export default function NewGoal() {
+interface NewGoalProps {
+	onAddGoal: (goal: string, summary: string) => void;
+}
+
+export default function NewGoal({ onAddGoal }: NewGoalProps) {
 	const goal = useRef<HTMLInputElement>(null);
 	const summary = useRef<HTMLInputElement>(null);
 
@@ -8,7 +12,8 @@ export default function NewGoal() {
 		event.preventDefault();
 		const enterGoal = goal.current!.value;
 		const enterSummary = summary.current!.value;
-		console.log(enterGoal, enterSummary);
+		event.currentTarget.reset();
+		onAddGoal(enterGoal, enterSummary);
 	}
 
 	return (
